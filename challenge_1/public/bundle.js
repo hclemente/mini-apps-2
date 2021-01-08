@@ -1991,7 +1991,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var EventItem = function EventItem(_ref) {
   var event = _ref.event;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, event.date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, event.description));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, "Date:", event.date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, event.description));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventItem);
