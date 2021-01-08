@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev-start": "webpack --mode development --watch"
+    "dev-start": "webpack --mode development --watch",
+    "start-nodemon": "nodemon ./server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,8 @@
     "webpack-cli": "^4.3.1"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }
