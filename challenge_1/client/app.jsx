@@ -1,6 +1,7 @@
 import React from 'react';
 import Search from './Search';
 import axios from 'axios';
+import EventList from './EventList'
 
 
 class App extends React.Component {
@@ -12,6 +13,17 @@ class App extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.getEvents = this.getEvents.bind(this);
+  }
+
+  getEvents() {
+    axios.get(`http://localhost:3000/events?q=${this.state.searchValue}&_start=${1}&_limit=10`)
+    .then((events) => {
+      this.setState({
+        results: events.data,
+      });
+    })
+    .catch((err)  => console.log(err));
   }
 
   componentDidMount() {
@@ -25,14 +37,7 @@ class App extends React.Component {
   }
 
   onSubmit() {
-    axios.get(`http://localhost:3000/events?q=${this.state.searchValue}&_start=${1}&_limit=10`)
-    .then((events) => {
-      this.setState({
-        results: events.data,
-      });
-      console.log(this.state);
-    })
-    .catch((err)  => console.log(err));
+    this.getEvents();
   }
 
 
@@ -40,7 +45,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <Search searchValue={this.state.searchValue} onChange={this.handleChange} onSubmit={this.onSubmit}/>
+        <Search
+          searchValue={this.state.searchValue}
+          onChange={this.handleChange}
+          onSubmit={this.onSubmit}/>
+        <EventList results={this.state.results} />
       </div>
 
     )

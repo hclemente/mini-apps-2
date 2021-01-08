@@ -1848,6 +1848,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Search */ "./client/Search.jsx");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _EventList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EventList */ "./client/EventList.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1876,6 +1877,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -1893,10 +1895,24 @@ var App = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.getEvents = _this.getEvents.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
+    key: "getEvents",
+    value: function getEvents() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://localhost:3000/events?q=".concat(this.state.searchValue, "&_start=", 1, "&_limit=10")).then(function (events) {
+        _this2.setState({
+          results: events.data
+        });
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {}
   }, {
@@ -1907,17 +1923,7 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "onSubmit",
     value: function onSubmit() {
-      var _this2 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://localhost:3000/events?q=".concat(this.state.searchValue, "&_start=", 1, "&_limit=10")).then(function (events) {
-        _this2.setState({
-          results: events.data
-        });
-
-        console.log(_this2.state);
-      })["catch"](function (err) {
-        return console.log(err);
-      });
+      this.getEvents();
     }
   }, {
     key: "render",
@@ -1928,6 +1934,8 @@ var App = /*#__PURE__*/function (_React$Component) {
         searchValue: this.state.searchValue,
         onChange: this.handleChange,
         onSubmit: this.onSubmit
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_EventList__WEBPACK_IMPORTED_MODULE_3__.default, {
+        results: this.state.results
       }));
     }
   }]);
@@ -1946,6 +1954,59 @@ var App = /*#__PURE__*/function (_React$Component) {
 //     justifyContent: 'center',
 //   }
 // })
+
+/***/ }),
+
+/***/ "./client/EventItem.jsx":
+/*!******************************!*\
+  !*** ./client/EventItem.jsx ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var EventItem = function EventItem(_ref) {
+  var event = _ref.event;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, event.date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, event.description));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventItem);
+
+/***/ }),
+
+/***/ "./client/EventList.jsx":
+/*!******************************!*\
+  !*** ./client/EventList.jsx ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _EventItem_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EventItem.jsx */ "./client/EventItem.jsx");
+
+
+
+var EventList = function EventList(_ref) {
+  var results = _ref.results;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, results.map(function (event, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_EventItem_jsx__WEBPACK_IMPORTED_MODULE_1__.default, {
+      key: index,
+      event: event
+    });
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventList);
 
 /***/ }),
 
