@@ -3,7 +3,7 @@ import React from 'react';
 const EventItem = ( { event }) => {
   return (
     <div>
-      <h2>{event.date}</h2>
+      <h3>{event.date}</h3>
       <p>{event.description}</p>
     </div>
   )

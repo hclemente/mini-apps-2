@@ -1,8 +1,8 @@
 import React from 'react';
 import Search from './Search';
 import axios from 'axios';
-import EventList from './EventList'
-
+import EventList from './EventList';
+import ReactPaginate from 'react-paginate';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,17 +10,21 @@ class App extends React.Component {
     this.state = {
       searchValue: '',
       results: [],
+      pageCount: 0,
+      start: 0,
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onPageClick = this.onPageClick.bind(this);
     this.getEvents = this.getEvents.bind(this);
   }
 
-  getEvents() {
-    axios.get(`http://localhost:3000/events?q=${this.state.searchValue}&_start=${1}&_limit=10`)
+  getEvents(start) {
+    axios.get(`http://localhost:3000/events?q=${this.state.searchValue}&_start=${start}&_limit=10`)
     .then((events) => {
       this.setState({
         results: events.data,
+        pageCount: Math.ceil(events.headers["x-total-count"] / 10)
       });
     })
     .catch((err)  => console.log(err));
@@ -30,7 +34,7 @@ class App extends React.Component {
 
   }
 
-  handleChange (event) {
+  onChange (event) {
     this.setState({
       [event.target.id]: event.target.value,
     })
@@ -40,16 +44,37 @@ class App extends React.Component {
     this.getEvents();
   }
 
-
+  onPageClick(results) {
+    let selected = results.selected;
+    let start = Math.ceil(selected * 10);
+    this.setState(
+      {start: start},
+      this.getEvents(this.state.start)
+    );
+  }
 
   render() {
     return (
       <div className="container">
         <Search
           searchValue={this.state.searchValue}
-          onChange={this.handleChange}
+          onChange={this.onChange}
           onSubmit={this.onSubmit}/>
-        <EventList results={this.state.results} />
+        <EventList
+          results={this.state.results} />
+        <ReactPaginate
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={this.state.pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={this.onPageClick}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'}
+        />
       </div>
 
     )
@@ -58,18 +83,5 @@ class App extends React.Component {
 }
 
 export default App;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     height: '100%',
-//     width: '100%',
-//     flex: 1,
-//     flexDirection: 'column',
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-
-//   }
-// })
 
 
