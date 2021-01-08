@@ -11,7 +11,7 @@ class App extends React.Component {
       results: [],
     };
     this.handleChange = this.handleChange.bind(this);
-    this.onSubmit = this.onSubmit
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -20,8 +20,19 @@ class App extends React.Component {
 
   handleChange (event) {
     this.setState({
-      searchValue: event.target.value,
+      [event.target.id]: event.target.value,
     })
+  }
+
+  onSubmit() {
+    axios.get(`http://localhost:3000/events?q=${this.state.searchValue}&_page=${1}`)
+    .then((events) => {
+      this.setState({
+        results: events.data,
+      });
+      console.log(this.state);
+    })
+    .catch((err)  => console.log(err));
   }
 
 
@@ -29,7 +40,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <Search searchValue={this.state.searchValue} onChange={this.handleChange}/>
+        <Search searchValue={this.state.searchValue} onChange={this.handleChange} onSubmit={this.onSubmit}/>
       </div>
 
     )

@@ -1850,6 +1850,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1890,7 +1892,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       results: []
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
-    _this.onSubmit = _this.onSubmit;
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1900,8 +1902,21 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleChange",
     value: function handleChange(event) {
-      this.setState({
-        searchValue: event.target.value
+      this.setState(_defineProperty({}, event.target.id, event.target.value));
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://localhost:3000/events?q=".concat(this.state.searchValue, "&_page=", 1)).then(function (events) {
+        _this2.setState({
+          results: events.data
+        });
+
+        console.log(_this2.state);
+      })["catch"](function (err) {
+        return console.log(err);
       });
     }
   }, {
@@ -1911,7 +1926,8 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Search__WEBPACK_IMPORTED_MODULE_1__.default, {
         searchValue: this.state.searchValue,
-        onChange: this.handleChange
+        onChange: this.handleChange,
+        onSubmit: this.onSubmit
       }));
     }
   }]);
@@ -1950,12 +1966,13 @@ __webpack_require__.r(__webpack_exports__);
 var Search = function Search(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "text",
-    name: "name",
+    id: "searchValue",
     placeholder: "search",
     value: props.searchValue,
     onChange: props.onChange
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    type: "submit"
+    type: "submit",
+    onClick: props.onSubmit
   }, "search"));
 };
 

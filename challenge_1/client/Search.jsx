@@ -5,12 +5,12 @@ const Search = (props) => {
     <div>
     <input
       type="text"
-      name="name"
+      id="searchValue"
       placeholder="search"
       value={props.searchValue}
       onChange={props.onChange}
     />
-    <button type="submit">search</button>
+    <button type="submit" onClick={props.onSubmit}>search</button>
     </div>
   )
 }
