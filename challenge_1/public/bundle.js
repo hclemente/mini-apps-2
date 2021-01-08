@@ -1909,7 +1909,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function onSubmit() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://localhost:3000/events?q=".concat(this.state.searchValue, "&_page=", 1)).then(function (events) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://localhost:3000/events?q=".concat(this.state.searchValue, "&_start=", 1, "&_limit=10")).then(function (events) {
         _this2.setState({
           results: events.data
         });

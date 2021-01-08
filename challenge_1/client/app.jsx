@@ -25,7 +25,7 @@ class App extends React.Component {
   }
 
   onSubmit() {
-    axios.get(`http://localhost:3000/events?q=${this.state.searchValue}&_page=${1}`)
+    axios.get(`http://localhost:3000/events?q=${this.state.searchValue}&_start=${1}&_limit=10`)
     .then((events) => {
       this.setState({
         results: events.data,
