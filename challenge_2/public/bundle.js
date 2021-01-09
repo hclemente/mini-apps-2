@@ -1929,10 +1929,10 @@ var App = /*#__PURE__*/function (_React$Component) {
       if (this.state.isLoading) {
         render = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "isLoading");
       } else {
-        render = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LineGraph__WEBPACK_IMPORTED_MODULE_3__.default, {
+        render = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LineGraph__WEBPACK_IMPORTED_MODULE_3__.default, {
           labels: labels,
           data: data
-        });
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", null, "Powered by CoinDesk"));
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, render);

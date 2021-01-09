@@ -35,7 +35,11 @@ class App extends React.Component {
     if (this.state.isLoading) {
       render = (<div>isLoading</div>)
     } else {
-      render = <LineGraph labels={labels} data={data}/>
+      render = (
+        <div>
+                <LineGraph labels={labels} data={data}/>
+                <h4>Powered by CoinDesk</h4>
+        </div> )
     }
     return (
       <div>
