@@ -2011,7 +2011,7 @@ var LineGraph = /*#__PURE__*/function (_Component) {
           //Bring in data
           labels: this.props.labels,
           datasets: [{
-            label: "Bitcoin Price",
+            label: "Bitcoin Price (USD)",
             data: this.props.data
           }]
         },

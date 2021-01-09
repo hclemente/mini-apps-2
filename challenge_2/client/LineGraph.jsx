@@ -22,7 +22,7 @@ export default class LineGraph extends Component {
                 labels: this.props.labels,
                 datasets: [
                     {
-                        label: "Bitcoin Price",
+                        label: "Bitcoin Price (USD)",
                         data: this.props.data,
                     }
                 ]
