@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "dev-start": "webpack --mode development --watch",
+    "start": "node ./server/server.js",
+    "dev": "webpack --mode development",
+    "dev-watch": "webpack --mode development --watch",
     "start-nodemon": "nodemon ./server/server.js"
   },
   "keywords": [],
@@ -20,6 +21,8 @@
     "webpack-cli": "^4.3.1"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "chart.js": "^2.9.4",
     "express": "^4.17.1",
     "nodemon": "^2.0.7",
     "react": "^17.0.1",
