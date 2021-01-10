@@ -4,7 +4,7 @@ import Key from './Key';
 
 const KeypadContainer = styled.div`
   height: 56px;
-  width: 140px;
+  width: 168px;
   background: white;
   align-self: flex-start;
   border: 2px solid black;
@@ -13,7 +13,7 @@ const KeypadContainer = styled.div`
 
 const Keypad = (props) => {
 
-  let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  let numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 
   return (

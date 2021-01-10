@@ -72,7 +72,7 @@ class App extends React.Component {
     } else {
       newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
       if (newState.currentSubFrameIndex < 2 && pins < 10) {
-        newState.currentSubFrameIndex += 2;
+        newState.currentSubFrameIndex++;
       } else if (newState.currentSubFrameIndex < 2 && pins === 10) {
         newState.currentSubFrameIndex++;
       } else {
@@ -87,7 +87,7 @@ class App extends React.Component {
   calculateScore (state) {
     let frames = state.frames;
     let result = 0;
-    for (let i = 0; i < state.frames.length - 2; i++) {
+    for (let i = 0; i < state.frames.length - 1; i++) {
       for (let j = 0; j < 2; j++) {
         result += frames[i][j];
         if (i > 0) {
@@ -96,10 +96,25 @@ class App extends React.Component {
           } else if ((frames[i - 1][0] + frames[i - 1][1]) === 10 && j === 0) {
             result += frames[i][0];
           }
+          if (i > 1) {
+            if (frames[i - 2][0] === 10 && frames[i - 1][0] === 10) {
+              result += frames[i][j];
+            }
+          }
         }
 
       }
     }
+    if (frames[8][0] === 10) {
+      result += frames[9][0];
+    } else if (frames[8][0] + frames[8][1] === 10) {
+      result += frames[9][0];
+    }
+    if (frames[7][0] === 10 && frames[8][0] === 10) {
+      result += frames[9][0];
+      result += frames[9][1];
+    }
+    result += frames[9][0] + frames[9][1] + frames[9][2];
     return result;
   }
 
