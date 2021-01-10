@@ -16,7 +16,17 @@ const ScoreContainer = styled.div`
 const FrameScore = (props) => {
   return (
     <ScoreContainer>
-      X
+      {props.pins.map((number, index) => {
+        let scores;
+        if (index < props.pins.length - 1) {
+          scores = (<span>{`${number},`}</span>)
+        } else {
+          scores = (<span>{`${number}`}</span>)
+        }
+        return (
+          scores
+        )
+      })}
     </ScoreContainer>
   )
 }

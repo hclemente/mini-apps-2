@@ -14,7 +14,7 @@ const NameContainer = styled.div`
 
 const Name = props => (
   <NameContainer>
-    Harry
+    {props.name}
   </NameContainer>
 )
 

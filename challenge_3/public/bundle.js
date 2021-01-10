@@ -3183,9 +3183,9 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      name: '',
+      name: 'Harry',
       totalScore: 0,
-      frames: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      frames: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]],
       currentFrameIndex: 1
     };
     return _this;
@@ -3197,11 +3197,19 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MainContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PlayerContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Name__WEBPACK_IMPORTED_MODULE_4__.default, null), this.state.frames.map(function (score, index) {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MainContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PlayerContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Name__WEBPACK_IMPORTED_MODULE_4__.default, {
+        name: this.state.name
+      }), this.state.frames.map(function (pins, index) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Frame__WEBPACK_IMPORTED_MODULE_5__.default, {
-          key: index
+          key: index,
+          pins: pins,
+          totalScore: _this2.state.totalScore
         });
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Scoreboard__WEBPACK_IMPORTED_MODULE_3__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Keypad__WEBPACK_IMPORTED_MODULE_2__.default, null)));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Scoreboard__WEBPACK_IMPORTED_MODULE_3__.default, {
+        totalScore: this.state.totalScore
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Keypad__WEBPACK_IMPORTED_MODULE_2__.default, null)));
     }
   }]);
 
@@ -3240,7 +3248,9 @@ var TotalContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div.
 })(["height:28px;width:56px;color:yellow;display:flex;justify-content:center;align-items:center;z-index:3;"]);
 
 var Frame = function Frame(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(FrameContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FrameScore__WEBPACK_IMPORTED_MODULE_1__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(TotalContainer, null, "Total"));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(FrameContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FrameScore__WEBPACK_IMPORTED_MODULE_1__.default, {
+    pins: props.pins
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(TotalContainer, null, props.totalScore));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Frame);
@@ -3268,7 +3278,17 @@ var ScoreContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.
 })(["height:28px;width:50px;background:white;border-bottom:1px solid black;border-left:1px solid black;display:flex;justify-content:center;align-items:center;z-index:3;"]);
 
 var FrameScore = function FrameScore(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ScoreContainer, null, "X");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ScoreContainer, null, props.pins.map(function (number, index) {
+    var scores;
+
+    if (index < props.pins.length - 1) {
+      scores = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "".concat(number, ","));
+    } else {
+      scores = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "".concat(number));
+    }
+
+    return scores;
+  }));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FrameScore);
@@ -3359,7 +3379,7 @@ var NameContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.w
 })(["height:56px;width:176px;background:orange;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
 
 var Name = function Name(props) {
-  return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(NameContainer, null, "Harry");
+  return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(NameContainer, null, props.name);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Name);
@@ -3387,7 +3407,7 @@ var Container = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.withC
 })(["height:56px;width:116px;background:green;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
 
 var Scoreboard = function Scoreboard(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Container, null, "300");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Container, null, props.totalScore);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Scoreboard);
@@ -3408,7 +3428,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_App__WEBPACK_IMPORTED_MODULE_2__.default, null), document.getElementById('app'));
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_App__WEBPACK_IMPORTED_MODULE_2__.default, null), document.getElementById('root'));
 
 /***/ }),
 

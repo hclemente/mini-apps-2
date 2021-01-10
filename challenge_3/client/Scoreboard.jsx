@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const Scoreboard = (props) => (
   <Container>
-    300
+    {props.totalScore}
   </Container>
 
 )

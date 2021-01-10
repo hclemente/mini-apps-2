@@ -25,9 +25,9 @@ const TotalContainer = styled.div`
 
 const Frame = (props) => (
   <FrameContainer>
-    <FrameScore/>
+    <FrameScore pins={props.pins}/>
     <TotalContainer>
-      Total
+      {props.totalScore}
     </TotalContainer>
   </FrameContainer>
 )

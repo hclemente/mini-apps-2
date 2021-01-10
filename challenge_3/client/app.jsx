@@ -44,25 +44,28 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      name: '',
+      name: 'Harry',
       totalScore: 0,
-      frames: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      currentFrameIndex: 1,
+      frames:
+        [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]],
+      currentFrameIndex: 0,
+      currentSubFrameIndex: 0,
     }
   }
   componentDidMount() {
 
   }
+
   render() {
 
     return (
       <MainContainer>
         <PlayerContainer>
-        <Name/>
-        {this.state.frames.map((score, index) =>
-          <Frame key={index}/>
+        <Name name={this.state.name}/>
+        {this.state.frames.map((pins, index) =>
+          <Frame key={index} pins={pins} totalScore={this.state.totalScore}/>
         )}
-        <Scoreboard/>
+        <Scoreboard totalScore={this.state.totalScore}/>
         </PlayerContainer>
         <InputContainer>
         <Keypad/>
