@@ -5,7 +5,7 @@ import FrameScore from './FrameScore';
 const FrameContainer = styled.div`
   height: 56px;
   width: 56px;
-  background: purple;
+  background: blue;
   border: 2px solid black;
   display: flex;
   flex-direction: column;

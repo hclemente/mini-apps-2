@@ -19,9 +19,9 @@ const FrameScore = (props) => {
       {props.pins.map((number, index) => {
         let scores;
         if (index < props.pins.length - 1) {
-          scores = (<span>{`${number},`}</span>)
+          scores = (<span key={index}>{`${number},`}</span>)
         } else {
-          scores = (<span>{`${number}`}</span>)
+          scores = (<span key={index}>{`${number}`}</span>)
         }
         return (
           scores

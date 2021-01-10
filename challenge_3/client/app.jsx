@@ -51,10 +51,38 @@ class App extends React.Component {
       currentFrameIndex: 0,
       currentSubFrameIndex: 0,
     }
+    this.inputPins = this.inputPins.bind(this);
   }
-  componentDidMount() {
 
+  inputPins (pins) {
+    let newState = Object.assign({}, this.state);
+    if (newState.currentFrameIndex === 0 && newState.currentSubFrameIndex === 0 && newState.totalScore !== 0) {
+      newState.frames = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]];
+      newState.totalScore = 0;
+    }
+    if (newState.currentFrameIndex < 9) {
+      newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
+      newState.totalScore = pins;
+      if (newState.currentSubFrameIndex === 0) {
+        newState.currentSubFrameIndex++;
+      } else {
+        newState.currentSubFrameIndex--;
+        newState.currentFrameIndex++;
+      }
+    } else {
+      newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
+      if (newState.currentSubFrameIndex < 2) {
+        newState.currentSubFrameIndex++;
+      } else {
+        newState.currentSubFrameIndex = 0;
+        newState.currentFrameIndex = 0;
+      }
+    }
+    console.log('CFI: ', newState.currentFrameIndex);
+    console.log('CSFI: ', newState.currentSubFrameIndex);
+    this.setState(newState);
   }
+
 
   render() {
 
@@ -68,7 +96,7 @@ class App extends React.Component {
         <Scoreboard totalScore={this.state.totalScore}/>
         </PlayerContainer>
         <InputContainer>
-        <Keypad/>
+        <Keypad inputPins={this.inputPins}/>
         </InputContainer>
       </MainContainer>
     )

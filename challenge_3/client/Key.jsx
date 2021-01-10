@@ -11,7 +11,7 @@ const KeyContainer = styled.button`
 
 const Key = (props) => (
 
-  <KeyContainer>
+  <KeyContainer onClick={()=>props.inputPins(props.number)}>
     {props.number}
   </KeyContainer>
 

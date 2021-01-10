@@ -18,8 +18,8 @@ const Keypad = (props) => {
 
   return (
     <KeypadContainer>
-      {numbers.map((number) =>
-        <Key number={number}/>
+      {numbers.map((number, index) =>
+        <Key number={number} inputPins={props.inputPins} key={index}/>
       )}
     </KeypadContainer>
   )

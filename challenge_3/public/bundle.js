@@ -3186,14 +3186,47 @@ var App = /*#__PURE__*/function (_React$Component) {
       name: 'Harry',
       totalScore: 0,
       frames: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]],
-      currentFrameIndex: 1
+      currentFrameIndex: 0,
+      currentSubFrameIndex: 0
     };
+    _this.inputPins = _this.inputPins.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {}
+    key: "inputPins",
+    value: function inputPins(pins) {
+      var newState = Object.assign({}, this.state);
+
+      if (newState.currentFrameIndex === 0 && newState.currentSubFrameIndex === 0 && newState.totalScore !== 0) {
+        newState.frames = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]];
+      }
+
+      if (newState.currentFrameIndex < 9) {
+        newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
+        newState.totalScore = pins;
+
+        if (newState.currentSubFrameIndex === 0) {
+          newState.currentSubFrameIndex++;
+        } else {
+          newState.currentSubFrameIndex--;
+          newState.currentFrameIndex++;
+        }
+      } else {
+        newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
+
+        if (newState.currentSubFrameIndex < 2) {
+          newState.currentSubFrameIndex++;
+        } else {
+          newState.currentSubFrameIndex = 0;
+          newState.currentFrameIndex = 0;
+        }
+      }
+
+      console.log('CFI: ', newState.currentFrameIndex);
+      console.log('CSFI: ', newState.currentSubFrameIndex);
+      this.setState(newState);
+    }
   }, {
     key: "render",
     value: function render() {
@@ -3209,7 +3242,9 @@ var App = /*#__PURE__*/function (_React$Component) {
         });
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Scoreboard__WEBPACK_IMPORTED_MODULE_3__.default, {
         totalScore: this.state.totalScore
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Keypad__WEBPACK_IMPORTED_MODULE_2__.default, null)));
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Keypad__WEBPACK_IMPORTED_MODULE_2__.default, {
+        inputPins: this.inputPins
+      })));
     }
   }]);
 
@@ -3241,7 +3276,7 @@ __webpack_require__.r(__webpack_exports__);
 var FrameContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div.withConfig({
   displayName: "Frame__FrameContainer",
   componentId: "sc-1jq7xth-0"
-})(["height:56px;width:56px;background:purple;border:2px solid black;display:flex;flex-direction:column;align-items:flex-end;z-index:2;"]);
+})(["height:56px;width:56px;background:blue;border:2px solid black;display:flex;flex-direction:column;align-items:flex-end;z-index:2;"]);
 var TotalContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div.withConfig({
   displayName: "Frame__TotalContainer",
   componentId: "sc-1jq7xth-1"
@@ -3282,9 +3317,13 @@ var FrameScore = function FrameScore(props) {
     var scores;
 
     if (index < props.pins.length - 1) {
-      scores = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "".concat(number, ","));
+      scores = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+        key: index
+      }, "".concat(number, ","));
     } else {
-      scores = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "".concat(number));
+      scores = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+        key: index
+      }, "".concat(number));
     }
 
     return scores;
@@ -3316,7 +3355,11 @@ var KeyContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.button
 })(["height:28px;width:28px;background:red;justify-content:center;align-self:center;"]);
 
 var Key = function Key(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(KeyContainer, null, props.number);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(KeyContainer, {
+    onClick: function onClick() {
+      return props.inputPins(props.number);
+    }
+  }, props.number);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Key);
@@ -3347,9 +3390,11 @@ var KeypadContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div
 
 var Keypad = function Keypad(props) {
   var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(KeypadContainer, null, numbers.map(function (number) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(KeypadContainer, null, numbers.map(function (number, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Key__WEBPACK_IMPORTED_MODULE_1__.default, {
-      number: number
+      number: number,
+      inputPins: props.inputPins,
+      key: index
     });
   }));
 };
@@ -3376,7 +3421,7 @@ __webpack_require__.r(__webpack_exports__);
 var NameContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.withConfig({
   displayName: "Name__NameContainer",
   componentId: "nl6zu9-0"
-})(["height:56px;width:176px;background:orange;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
+})(["height:56px;width:176px;background:blue;color:yellow;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
 
 var Name = function Name(props) {
   return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(NameContainer, null, props.name);
@@ -3404,7 +3449,7 @@ __webpack_require__.r(__webpack_exports__);
 var Container = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.withConfig({
   displayName: "Scoreboard__Container",
   componentId: "sc-7vizl7-0"
-})(["height:56px;width:116px;background:green;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
+})(["height:56px;width:116px;background:blue;color:yellow;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
 
 var Scoreboard = function Scoreboard(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Container, null, props.totalScore);
