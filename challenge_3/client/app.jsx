@@ -63,23 +63,23 @@ class App extends React.Component {
     if (newState.currentFrameIndex < 9) {
       newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
       newState.totalScore = pins;
-      if (newState.currentSubFrameIndex === 0) {
+      if (newState.currentSubFrameIndex === 0 && pins < 10) {
         newState.currentSubFrameIndex++;
       } else {
-        newState.currentSubFrameIndex--;
+        newState.currentSubFrameIndex = 0;
         newState.currentFrameIndex++;
       }
     } else {
       newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
-      if (newState.currentSubFrameIndex < 2) {
+      if (newState.currentSubFrameIndex < 2 && pins < 10) {
+        newState.currentSubFrameIndex += 2;
+      } else if (newState.currentSubFrameIndex < 2 && pins === 10) {
         newState.currentSubFrameIndex++;
       } else {
         newState.currentSubFrameIndex = 0;
         newState.currentFrameIndex = 0;
       }
     }
-    console.log('CFI: ', newState.currentFrameIndex);
-    console.log('CSFI: ', newState.currentSubFrameIndex);
     this.setState(newState);
   }
 
