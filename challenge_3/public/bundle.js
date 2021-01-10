@@ -3190,6 +3190,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       currentSubFrameIndex: 0
     };
     _this.inputPins = _this.inputPins.bind(_assertThisInitialized(_this));
+    _this.calculateScore = _this.calculateScore.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -3205,7 +3206,6 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       if (newState.currentFrameIndex < 9) {
         newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
-        newState.totalScore = pins;
 
         if (newState.currentSubFrameIndex === 0 && pins < 10) {
           newState.currentSubFrameIndex++;
@@ -3226,9 +3226,30 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       }
 
-      console.log('CFI: ', newState.currentFrameIndex);
-      console.log('CSFI: ', newState.currentSubFrameIndex);
+      newState.totalScore = this.calculateScore(newState);
       this.setState(newState);
+    }
+  }, {
+    key: "calculateScore",
+    value: function calculateScore(state) {
+      var frames = state.frames;
+      var result = 0;
+
+      for (var i = 0; i < state.frames.length - 2; i++) {
+        for (var j = 0; j < 2; j++) {
+          result += frames[i][j];
+
+          if (i > 0) {
+            if (frames[i - 1][0] === 10) {
+              result += frames[i][j];
+            } else if (frames[i - 1][0] + frames[i - 1][1] === 10 && j === 0) {
+              result += frames[i][0];
+            }
+          }
+        }
+      }
+
+      return result;
     }
   }, {
     key: "render",

@@ -52,6 +52,7 @@ class App extends React.Component {
       currentSubFrameIndex: 0,
     }
     this.inputPins = this.inputPins.bind(this);
+    this.calculateScore = this.calculateScore.bind(this);
   }
 
   inputPins (pins) {
@@ -62,7 +63,6 @@ class App extends React.Component {
     }
     if (newState.currentFrameIndex < 9) {
       newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
-      newState.totalScore = pins;
       if (newState.currentSubFrameIndex === 0 && pins < 10) {
         newState.currentSubFrameIndex++;
       } else {
@@ -80,7 +80,27 @@ class App extends React.Component {
         newState.currentFrameIndex = 0;
       }
     }
+    newState.totalScore = this.calculateScore(newState);
     this.setState(newState);
+  }
+
+  calculateScore (state) {
+    let frames = state.frames;
+    let result = 0;
+    for (let i = 0; i < state.frames.length - 2; i++) {
+      for (let j = 0; j < 2; j++) {
+        result += frames[i][j];
+        if (i > 0) {
+          if(frames[i - 1][0] === 10) {
+            result += frames[i][j];
+          } else if ((frames[i - 1][0] + frames[i - 1][1]) === 10 && j === 0) {
+            result += frames[i][0];
+          }
+        }
+
+      }
+    }
+    return result;
   }
 
 
