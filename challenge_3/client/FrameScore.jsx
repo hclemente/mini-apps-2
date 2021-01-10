@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const ScoreContainer = styled.div`
   height: 28px;
   width: 50px;
-  background: white;
+  background: #33CEFF;
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   display: flex;

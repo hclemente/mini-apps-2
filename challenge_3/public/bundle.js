@@ -3199,34 +3199,42 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function inputPins(pins) {
       var newState = Object.assign({}, this.state);
 
-      if (newState.currentFrameIndex === 0 && newState.currentSubFrameIndex === 0 && newState.totalScore !== 0) {
-        newState.frames = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]];
-        newState.totalScore = 0;
-      }
-
-      if (newState.currentFrameIndex < 9) {
-        newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
-
-        if (newState.currentSubFrameIndex === 0 && pins < 10) {
-          newState.currentSubFrameIndex++;
-        } else {
-          newState.currentSubFrameIndex = 0;
-          newState.currentFrameIndex++;
+      if (pins !== 'R') {
+        if (newState.currentFrameIndex === 0 && newState.currentSubFrameIndex === 0 && newState.totalScore !== 0) {
+          newState.frames = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]];
+          newState.totalScore = 0;
         }
+
+        if (newState.currentFrameIndex < 9) {
+          newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
+
+          if (newState.currentSubFrameIndex === 0 && pins < 10) {
+            newState.currentSubFrameIndex++;
+          } else {
+            newState.currentSubFrameIndex = 0;
+            newState.currentFrameIndex++;
+          }
+        } else {
+          newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
+
+          if (newState.currentSubFrameIndex < 2 && pins < 10) {
+            newState.currentSubFrameIndex++;
+          } else if (newState.currentSubFrameIndex < 2 && pins === 10) {
+            newState.currentSubFrameIndex++;
+          } else {
+            newState.currentSubFrameIndex = 0;
+            newState.currentFrameIndex = 0;
+          }
+        }
+
+        newState.totalScore = this.calculateScore(newState);
       } else {
-        newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
-
-        if (newState.currentSubFrameIndex < 2 && pins < 10) {
-          newState.currentSubFrameIndex++;
-        } else if (newState.currentSubFrameIndex < 2 && pins === 10) {
-          newState.currentSubFrameIndex++;
-        } else {
-          newState.currentSubFrameIndex = 0;
-          newState.currentFrameIndex = 0;
-        }
+        newState.currentSubFrameIndex = 0;
+        newState.currentFrameIndex = 0;
+        newState.totalScore = 0;
+        newState.frames = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]];
       }
 
-      newState.totalScore = this.calculateScore(newState);
       this.setState(newState);
     }
   }, {
@@ -3318,11 +3326,11 @@ __webpack_require__.r(__webpack_exports__);
 var FrameContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div.withConfig({
   displayName: "Frame__FrameContainer",
   componentId: "sc-1jq7xth-0"
-})(["height:56px;width:56px;background:blue;border:2px solid black;display:flex;flex-direction:column;align-items:flex-end;z-index:2;"]);
+})(["height:56px;width:56px;background:#3633FF;border:2px solid black;display:flex;flex-direction:column;align-items:flex-end;z-index:2;"]);
 var TotalContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div.withConfig({
   displayName: "Frame__TotalContainer",
   componentId: "sc-1jq7xth-1"
-})(["height:28px;width:56px;color:yellow;display:flex;justify-content:center;align-items:center;z-index:3;"]);
+})(["height:28px;width:56px;color:gold;display:flex;justify-content:center;align-items:center;z-index:3;"]);
 
 var Frame = function Frame(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(FrameContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FrameScore__WEBPACK_IMPORTED_MODULE_1__.default, {
@@ -3352,7 +3360,7 @@ __webpack_require__.r(__webpack_exports__);
 var ScoreContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.withConfig({
   displayName: "FrameScore__ScoreContainer",
   componentId: "sc-1qqog6e-0"
-})(["height:28px;width:50px;background:white;border-bottom:1px solid black;border-left:1px solid black;display:flex;justify-content:center;align-items:center;z-index:3;"]);
+})(["height:28px;width:50px;background:#33CEFF;border-bottom:1px solid black;border-left:1px solid black;display:flex;justify-content:center;align-items:center;z-index:3;"]);
 
 var FrameScore = function FrameScore(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ScoreContainer, null, props.pins.map(function (number, index) {
@@ -3394,7 +3402,7 @@ __webpack_require__.r(__webpack_exports__);
 var KeyContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.button.withConfig({
   displayName: "Key__KeyContainer",
   componentId: "tes4dy-0"
-})(["height:28px;width:28px;background:red;justify-content:center;align-self:center;"]);
+})(["height:28px;width:28px;background:#FF7D33;justify-content:center;align-self:center;"]);
 
 var Key = function Key(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(KeyContainer, {
@@ -3431,7 +3439,7 @@ var KeypadContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div
 })(["height:56px;width:168px;background:white;align-self:flex-start;border:2px solid black;z-index:1;"]);
 
 var Keypad = function Keypad(props) {
-  var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "R"];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(KeypadContainer, null, numbers.map(function (number, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Key__WEBPACK_IMPORTED_MODULE_1__.default, {
       number: number,
@@ -3463,7 +3471,7 @@ __webpack_require__.r(__webpack_exports__);
 var NameContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.withConfig({
   displayName: "Name__NameContainer",
   componentId: "nl6zu9-0"
-})(["height:56px;width:176px;background:blue;color:yellow;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
+})(["height:56px;width:176px;background:#3633FF;color:gold;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
 
 var Name = function Name(props) {
   return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(NameContainer, null, props.name);
@@ -3491,7 +3499,7 @@ __webpack_require__.r(__webpack_exports__);
 var Container = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.withConfig({
   displayName: "Scoreboard__Container",
   componentId: "sc-7vizl7-0"
-})(["height:56px;width:116px;background:blue;color:yellow;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
+})(["height:56px;width:116px;background:#3633FF;color:gold;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
 
 var Scoreboard = function Scoreboard(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Container, null, props.totalScore);

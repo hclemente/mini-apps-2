@@ -57,30 +57,37 @@ class App extends React.Component {
 
   inputPins (pins) {
     let newState = Object.assign({}, this.state);
-    if (newState.currentFrameIndex === 0 && newState.currentSubFrameIndex === 0 && newState.totalScore !== 0) {
-      newState.frames = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]];
-      newState.totalScore = 0;
-    }
-    if (newState.currentFrameIndex < 9) {
-      newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
-      if (newState.currentSubFrameIndex === 0 && pins < 10) {
-        newState.currentSubFrameIndex++;
-      } else {
-        newState.currentSubFrameIndex = 0;
-        newState.currentFrameIndex++;
+    if (pins !== 'R') {
+      if (newState.currentFrameIndex === 0 && newState.currentSubFrameIndex === 0 && newState.totalScore !== 0) {
+        newState.frames = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]];
+        newState.totalScore = 0;
       }
+      if (newState.currentFrameIndex < 9) {
+        newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
+        if (newState.currentSubFrameIndex === 0 && pins < 10) {
+          newState.currentSubFrameIndex++;
+        } else {
+          newState.currentSubFrameIndex = 0;
+          newState.currentFrameIndex++;
+        }
+      } else {
+        newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
+        if (newState.currentSubFrameIndex < 2 && pins < 10) {
+          newState.currentSubFrameIndex++;
+        } else if (newState.currentSubFrameIndex < 2 && pins === 10) {
+          newState.currentSubFrameIndex++;
+        } else {
+          newState.currentSubFrameIndex = 0;
+          newState.currentFrameIndex = 0;
+        }
+      }
+      newState.totalScore = this.calculateScore(newState);
     } else {
-      newState.frames[newState.currentFrameIndex][newState.currentSubFrameIndex] = pins;
-      if (newState.currentSubFrameIndex < 2 && pins < 10) {
-        newState.currentSubFrameIndex++;
-      } else if (newState.currentSubFrameIndex < 2 && pins === 10) {
-        newState.currentSubFrameIndex++;
-      } else {
-        newState.currentSubFrameIndex = 0;
-        newState.currentFrameIndex = 0;
-      }
+      newState.currentSubFrameIndex = 0;
+      newState.currentFrameIndex = 0;
+      newState.totalScore = 0;
+      newState.frames = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]];
     }
-    newState.totalScore = this.calculateScore(newState);
     this.setState(newState);
   }
 

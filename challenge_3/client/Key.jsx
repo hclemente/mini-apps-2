@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const KeyContainer = styled.button`
   height: 28px;
   width: 28px;
-  background: red;
+  background: #FF7D33;
   justify-content: center;
   align-self: center;
 `;

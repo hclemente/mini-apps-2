@@ -5,7 +5,7 @@ import FrameScore from './FrameScore';
 const FrameContainer = styled.div`
   height: 56px;
   width: 56px;
-  background: blue;
+  background: #3633FF;
   border: 2px solid black;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@ const FrameContainer = styled.div`
 const TotalContainer = styled.div`
   height: 28px;
   width: 56px;
-  color: yellow;
+  color: gold;
   display: flex;
   justify-content: center;
   align-items: center;

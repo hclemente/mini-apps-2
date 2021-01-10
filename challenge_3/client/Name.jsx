@@ -4,8 +4,8 @@ import styled from 'styled-components';
 const NameContainer = styled.div`
   height: 56px;
   width: 176px;
-  background: blue;
-  color: yellow;
+  background: #3633FF;
+  color: gold;
   border: 2px solid black;
   z-index: 2;
   display: flex;
