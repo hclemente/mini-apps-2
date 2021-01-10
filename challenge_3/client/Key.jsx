@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const KeyContainer = styled.button`
-  height: 30px;
-  width: 30px;
+  height: 28px;
+  width: 28px;
   background: red;
   justify-content: center;
   align-self: center;

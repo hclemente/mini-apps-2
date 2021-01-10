@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Key from './Key';
 
 const KeypadContainer = styled.div`
-  height: 60px;
-  width: 150px;
+  height: 56px;
+  width: 140px;
   background: white;
   align-self: flex-start;
+  border: 2px solid black;
   z-index: 1;
 `;
 

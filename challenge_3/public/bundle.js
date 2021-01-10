@@ -3124,10 +3124,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _Keypad__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Keypad */ "./client/Keypad.jsx");
 /* harmony import */ var _Scoreboard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Scoreboard */ "./client/Scoreboard.jsx");
 /* harmony import */ var _Name__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Name */ "./client/Name.jsx");
+/* harmony import */ var _Frame__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Frame */ "./client/Frame.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3156,14 +3157,19 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var MainContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div.withConfig({
+
+var MainContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__.default.div.withConfig({
   displayName: "App__MainContainer",
   componentId: "don4n6-0"
-})(["position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:blue;height:120px;width:900px;margin:auto;display:flex;flex-direction:column;z-index:0;"]);
-var PlayerContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div.withConfig({
+})(["position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:grey;border:2px solid black;height:120px;width:900px;margin:auto;display:flex;flex-direction:column;z-index:0;"]);
+var PlayerContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__.default.div.withConfig({
   displayName: "App__PlayerContainer",
   componentId: "don4n6-1"
 })(["height:60px;width:900px;background:yellow;display:flex;flex-direction:row;z-index:1;"]);
+var InputContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__.default.div.withConfig({
+  displayName: "App__InputContainer",
+  componentId: "don4n6-2"
+})(["height:60px;width:900px;background:black;display:flex;flex-direction:row;z-index:1;"]);
 
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
@@ -3176,7 +3182,12 @@ var App = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, App);
 
     _this = _super.call(this, props);
-    _this.state = {};
+    _this.state = {
+      name: '',
+      totalScore: 0,
+      frames: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      currentFrameIndex: 1
+    };
     return _this;
   }
 
@@ -3186,7 +3197,11 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MainContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PlayerContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Name__WEBPACK_IMPORTED_MODULE_4__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Scoreboard__WEBPACK_IMPORTED_MODULE_3__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Keypad__WEBPACK_IMPORTED_MODULE_2__.default, null));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MainContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PlayerContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Name__WEBPACK_IMPORTED_MODULE_4__.default, null), this.state.frames.map(function (score, index) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Frame__WEBPACK_IMPORTED_MODULE_5__.default, {
+          key: index
+        });
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Scoreboard__WEBPACK_IMPORTED_MODULE_3__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Keypad__WEBPACK_IMPORTED_MODULE_2__.default, null)));
     }
   }]);
 
@@ -3195,6 +3210,68 @@ var App = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 /* background: #33B2FF, */
+
+/***/ }),
+
+/***/ "./client/Frame.jsx":
+/*!**************************!*\
+  !*** ./client/Frame.jsx ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _FrameScore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FrameScore */ "./client/FrameScore.jsx");
+
+
+
+var FrameContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div.withConfig({
+  displayName: "Frame__FrameContainer",
+  componentId: "sc-1jq7xth-0"
+})(["height:56px;width:56px;background:purple;border:2px solid black;display:flex;flex-direction:column;align-items:flex-end;z-index:2;"]);
+var TotalContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div.withConfig({
+  displayName: "Frame__TotalContainer",
+  componentId: "sc-1jq7xth-1"
+})(["height:28px;width:56px;color:yellow;display:flex;justify-content:center;align-items:center;z-index:3;"]);
+
+var Frame = function Frame(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(FrameContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FrameScore__WEBPACK_IMPORTED_MODULE_1__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(TotalContainer, null, "Total"));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Frame);
+
+/***/ }),
+
+/***/ "./client/FrameScore.jsx":
+/*!*******************************!*\
+  !*** ./client/FrameScore.jsx ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+
+var ScoreContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.withConfig({
+  displayName: "FrameScore__ScoreContainer",
+  componentId: "sc-1qqog6e-0"
+})(["height:28px;width:50px;background:white;border-bottom:1px solid black;border-left:1px solid black;display:flex;justify-content:center;align-items:center;z-index:3;"]);
+
+var FrameScore = function FrameScore(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ScoreContainer, null, "X");
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FrameScore);
 
 /***/ }),
 
@@ -3216,7 +3293,7 @@ __webpack_require__.r(__webpack_exports__);
 var KeyContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.button.withConfig({
   displayName: "Key__KeyContainer",
   componentId: "tes4dy-0"
-})(["height:30px;width:30px;background:red;justify-content:center;align-self:center;"]);
+})(["height:28px;width:28px;background:red;justify-content:center;align-self:center;"]);
 
 var Key = function Key(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(KeyContainer, null, props.number);
@@ -3246,7 +3323,7 @@ __webpack_require__.r(__webpack_exports__);
 var KeypadContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div.withConfig({
   displayName: "Keypad__KeypadContainer",
   componentId: "g327z6-0"
-})(["height:60px;width:150px;background:white;align-self:flex-start;z-index:1;"]);
+})(["height:56px;width:140px;background:white;align-self:flex-start;border:2px solid black;z-index:1;"]);
 
 var Keypad = function Keypad(props) {
   var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -3279,7 +3356,7 @@ __webpack_require__.r(__webpack_exports__);
 var NameContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.withConfig({
   displayName: "Name__NameContainer",
   componentId: "nl6zu9-0"
-})(["height:60px;width:240px;background:orange;z-index:2;"]);
+})(["height:56px;width:176px;background:orange;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
 
 var Name = function Name(props) {
   return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(NameContainer, null, "Harry");
@@ -3307,7 +3384,7 @@ __webpack_require__.r(__webpack_exports__);
 var Container = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.div.withConfig({
   displayName: "Scoreboard__Container",
   componentId: "sc-7vizl7-0"
-})(["height:60px;width:60px;background:green;z-index:2;"]);
+})(["height:56px;width:116px;background:green;border:2px solid black;z-index:2;display:flex;justify-content:center;align-items:center;"]);
 
 var Scoreboard = function Scoreboard(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Container, null, "300");
