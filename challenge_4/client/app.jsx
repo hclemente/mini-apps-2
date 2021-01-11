@@ -3,6 +3,19 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Square from './Square';
 
+/*
+Challenge 4
+- Setup Webpack, Babal, Express
+- Setup Jest
+- Setup Redux
+- Build UI
+  - render blank when covered
+  - or render a number, mine, or blank when uncovered
+- Implement uncoverSquare function
+  - create helper function to recursively uncover and check surrounding
+    squares for mines and return number of mines surrounding uncovered squares
+**/
+
 const MainContainer = styled.div`
     position: absolute;
     left: 50%;
@@ -50,6 +63,11 @@ class App extends React.Component {
     this.state = {
       squares: squares
     }
+    this.uncoverSquare = this.uncoverSquare.bind(this);
+  }
+
+  uncoverSquare (coordinate) {
+
   }
 
   render() {
@@ -57,7 +75,7 @@ class App extends React.Component {
     return (
       <MainContainer>
         {squares.map((square, index) =>
-          <Square key={index}/>
+          <Square key={index} uncoverSquare={this.uncoverSquare}/>
         )}
       </MainContainer>
     )

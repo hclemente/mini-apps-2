@@ -11,12 +11,11 @@ const SquareContainer = styled.button`
 
 const Square = (props) => {
   return (
-    <SquareContainer >
-      1
+    <SquareContainer onClick={()=>props.uncoverSquare([0,0])}>
+
     </SquareContainer>
   )
 }
 
 export default Square;
 
-// onClick={()=>props.uncoverSquare(props.number)}

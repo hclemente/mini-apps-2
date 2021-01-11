@@ -834,15 +834,22 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       squares: squares
     };
+    _this.uncoverSquare = _this.uncoverSquare.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
+    key: "uncoverSquare",
+    value: function uncoverSquare(coordinate) {}
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MainContainer, null, squares.map(function (square, index) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Square__WEBPACK_IMPORTED_MODULE_2__.default, {
-          key: index
+          key: index,
+          uncoverSquare: _this2.uncoverSquare
         });
       }));
     }
@@ -876,10 +883,14 @@ var SquareContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.but
 })(["height:45px;width:45px;background:#FF7D33;justify-content:center;align-self:center;"]);
 
 var Square = function Square(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, null, "1");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, {
+    onClick: function onClick() {
+      return props.uncoverSquare([0, 0]);
+    }
+  });
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Square); // onClick={()=>props.uncoverSquare(props.number)}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Square);
 
 /***/ }),
 
