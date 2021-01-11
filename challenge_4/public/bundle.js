@@ -764,7 +764,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _Square__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Square */ "./client/Square.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -790,10 +791,24 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var MainContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__.default.div.withConfig({
+
+var MainContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__.default.div.withConfig({
   displayName: "App__MainContainer",
   componentId: "sc-87f2c4-0"
-})(["position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:grey;border:2px solid black;height:450px;width:450px;margin:auto;display:flex;flex-direction:column;z-index:0;"]);
+})(["position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:grey;border:2px solid black;height:450px;width:450px;margin:auto;display:flex;flex-direction:row;flex-wrap:wrap;z-index:0;"]);
+var numSquares = 100;
+
+var createSquares = function createSquares(numSquares) {
+  var squares = [];
+
+  for (var i = 0; i < numSquares; i++) {
+    squares.push(i);
+  }
+
+  return squares;
+};
+
+var squares = createSquares(numSquares);
 
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
@@ -806,14 +821,20 @@ var App = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, App);
 
     _this = _super.call(this, props);
-    _this.state = {};
+    _this.state = {
+      squares: squares
+    };
     return _this;
   }
 
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MainContainer, null, "Test Content");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MainContainer, null, squares.map(function (square, index) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Square__WEBPACK_IMPORTED_MODULE_2__.default, {
+          key: index
+        });
+      }));
     }
   }]);
 
@@ -821,6 +842,34 @@ var App = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./client/Square.jsx":
+/*!***************************!*\
+  !*** ./client/Square.jsx ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+
+var SquareContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.button.withConfig({
+  displayName: "Square__SquareContainer",
+  componentId: "e2qb8z-0"
+})(["height:45px;width:45px;background:#FF7D33;justify-content:center;align-self:center;"]);
+
+var Square = function Square(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, null, props.key);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Square); // onClick={()=>props.uncoverSquare(props.number)}
 
 /***/ }),
 

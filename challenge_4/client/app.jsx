@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import Square from './Square';
 
 const MainContainer = styled.div`
     position: absolute;
@@ -13,15 +14,28 @@ const MainContainer = styled.div`
     width: 450px;
     margin: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     z-index: 0;
 `;
+
+let numSquares = 100;
+
+const createSquares = (numSquares) => {
+  let squares = [];
+  for (let i = 0; i < numSquares; i++) {
+    squares.push(i);
+  }
+  return squares;
+}
+
+let squares = createSquares(numSquares);
 
 class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-
+      squares: squares
     }
   }
 
@@ -29,7 +43,9 @@ class App extends React.Component {
 
     return (
       <MainContainer>
-        Test Content
+        {squares.map((square, index) =>
+          <Square key={index}/>
+        )}
       </MainContainer>
     )
   }
