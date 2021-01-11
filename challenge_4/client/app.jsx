@@ -9,8 +9,8 @@ const MainContainer = styled.div`
     transform: translate(-50%, -50%);
     background: grey;
     border: 2px solid black;
-    height: 900px;
-    width: 900px;
+    height: 450px;
+    width: 450px;
     margin: auto;
     display: flex;
     flex-direction: column;
