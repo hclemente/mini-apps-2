@@ -24,7 +24,14 @@ let numSquares = 100;
 const createSquares = (numSquares) => {
   let squares = [];
   for (let i = 0; i < numSquares; i++) {
-    squares.push(i);
+    squares.push(
+      {
+        index: i,
+        covered: true,
+        mine: Math.floor(Math.random() * Math.floor(9)),
+        gridCoordinate: [0,0]
+      }
+    );
   }
   return squares;
 }
