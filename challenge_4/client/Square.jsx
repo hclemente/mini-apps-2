@@ -12,7 +12,7 @@ const SquareContainer = styled.button`
 const Square = (props) => {
   return (
     <SquareContainer >
-      {props.key}
+      1
     </SquareContainer>
   )
 }

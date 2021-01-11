@@ -19,24 +19,30 @@ const MainContainer = styled.div`
     z-index: 0;
 `;
 
-let numSquares = 100;
+let numRows = 10;
+let numColumns = 10;
 
-const createSquares = (numSquares) => {
+const createSquares = (numRows, numColumns, mineRatio) => {
   let squares = [];
-  for (let i = 0; i < numSquares; i++) {
-    squares.push(
-      {
-        index: i,
-        covered: true,
-        mine: Math.floor(Math.random() * Math.floor(9)),
-        gridCoordinate: [0,0]
-      }
-    );
+  let index = 0;
+  for (let row = 0; row < numRows; row++) {
+    for (let column = 0; column < numColumns; column++) {
+      squares.push(
+          {
+            index: index,
+            covered: true,
+            mine: Math.floor(Math.random() * Math.floor(mineRatio)),
+            gridCoordinate: [row,column]
+          }
+        );
+        index++;
+    }
   }
+
   return squares;
 }
 
-let squares = createSquares(numSquares);
+let squares = createSquares(numRows, numColumns);
 
 class App extends React.Component {
   constructor (props) {

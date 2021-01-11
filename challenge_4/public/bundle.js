@@ -796,24 +796,29 @@ var MainContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__.default.div.w
   displayName: "App__MainContainer",
   componentId: "sc-87f2c4-0"
 })(["position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:grey;border:2px solid black;height:450px;width:450px;margin:auto;display:flex;flex-direction:row;flex-wrap:wrap;z-index:0;"]);
-var numSquares = 100;
+var numRows = 10;
+var numColumns = 10;
 
-var createSquares = function createSquares(numSquares) {
+var createSquares = function createSquares(numRows, numColumns, mineRatio) {
   var squares = [];
+  var index = 0;
 
-  for (var i = 0; i < numSquares; i++) {
-    squares.push({
-      index: i,
-      covered: true,
-      mine: Math.floor(Math.random() * Math.floor(9)),
-      gridCoordinate: [0, 0]
-    });
+  for (var row = 0; row < numRows; row++) {
+    for (var column = 0; column < numColumns; column++) {
+      squares.push({
+        index: index,
+        covered: true,
+        mine: Math.floor(Math.random() * Math.floor(mineRatio)),
+        gridCoordinate: [row, column]
+      });
+      index++;
+    }
   }
 
   return squares;
 };
 
-var squares = createSquares(numSquares);
+var squares = createSquares(numRows, numColumns);
 
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
@@ -871,7 +876,7 @@ var SquareContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.but
 })(["height:45px;width:45px;background:#FF7D33;justify-content:center;align-self:center;"]);
 
 var Square = function Square(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, null, props.key);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, null, "1");
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Square); // onClick={()=>props.uncoverSquare(props.number)}
