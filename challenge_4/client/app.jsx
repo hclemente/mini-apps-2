@@ -35,6 +35,7 @@ const MainContainer = styled.div`
 
 let numRows = 10;
 let numColumns = 10;
+let mineRatio = 10;
 
 const createSquares = (numRows, numColumns, mineRatio) => {
   let squares = [];
@@ -56,7 +57,7 @@ const createSquares = (numRows, numColumns, mineRatio) => {
   return squares;
 }
 
-let squares = createSquares(numRows, numColumns);
+let squares = createSquares(numRows, numColumns, mineRatio);
 
 class App extends React.Component {
   constructor (props) {
@@ -65,13 +66,52 @@ class App extends React.Component {
       squares: squares
     }
     this.uncoverSquare = this.uncoverSquare.bind(this);
+    this.countMines = this.countMines.bind(this);
   }
 
   uncoverSquare (index) {
     let newState = Object.assign({}, this.state);
     newState.squares[index].covered = false;
+    this.countMines(index);
     this.setState(newState);
-    console.log(this.state.squares[index]);
+    // console.log(this.state.squares[index]);
+  }
+
+  countMines (index) {
+    let count = 0;
+    let newState = Object.assign({}, this.state);
+    // console.log(newState.squares);
+    for (let i = 9; i < 12; i++) {
+      let above = index - i;
+      let below = index + i;
+      if (above > 0) {
+
+        if (newState.squares[above].mine === 0) {
+          count++;
+
+        }
+      }
+      if (below < squares.length) {
+
+        if (newState.squares[below].mine === 0) {
+          count++;
+
+        }
+      }
+    }
+    if (index !== 0 && index % 10 !== 0) {
+      if (newState.squares[index - 1].mine === 0) {
+        count++;
+        console.log('counted left')
+      }
+    }
+    if (index !== 9 && index % 10 !== 9) {
+      if (newState.squares[index + 1].mine === 0) {
+        count++;
+        console.log('counted right')
+      }
+    }
+    console.log(count);
   }
 
   render() {

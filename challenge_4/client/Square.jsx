@@ -10,10 +10,16 @@ const SquareContainer = styled.button`
 `;
 // FF7D33 : #33CEFF
 const Square = (props) => {
+  let square = <SquareContainer onClick={()=>props.uncoverSquare(props.square.index)} covered={props.square.covered}>{props.square.index}</SquareContainer>
+  if (props.square.mine === 0 && !props.square.covered) {
+    square = (
+      <SquareContainer onClick={()=>props.uncoverSquare(props.square.index)} covered={props.square.covered}>
+        X
+      </SquareContainer>
+    )
+  }
   return (
-    <SquareContainer onClick={()=>props.uncoverSquare(props.square.index)} covered={props.square.covered}>
-
-    </SquareContainer>
+    <div>{square}</div>
   )
 }
 

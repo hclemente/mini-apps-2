@@ -812,6 +812,7 @@ var MainContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__.default.div.w
 })(["position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:grey;border:2px solid black;height:450px;width:450px;margin:auto;display:flex;flex-direction:row;flex-wrap:wrap;z-index:0;"]);
 var numRows = 10;
 var numColumns = 10;
+var mineRatio = 10;
 
 var createSquares = function createSquares(numRows, numColumns, mineRatio) {
   var squares = [];
@@ -832,7 +833,7 @@ var createSquares = function createSquares(numRows, numColumns, mineRatio) {
   return squares;
 };
 
-var squares = createSquares(numRows, numColumns);
+var squares = createSquares(numRows, numColumns, mineRatio);
 
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
@@ -849,6 +850,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       squares: squares
     };
     _this.uncoverSquare = _this.uncoverSquare.bind(_assertThisInitialized(_this));
+    _this.countMines = _this.countMines.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -857,8 +859,47 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function uncoverSquare(index) {
       var newState = Object.assign({}, this.state);
       newState.squares[index].covered = false;
-      this.setState(newState);
-      console.log(this.state.squares[index]);
+      this.countMines(index);
+      this.setState(newState); // console.log(this.state.squares[index]);
+    }
+  }, {
+    key: "countMines",
+    value: function countMines(index) {
+      var count = 0;
+      var newState = Object.assign({}, this.state); // console.log(newState.squares);
+
+      for (var i = 9; i < 12; i++) {
+        var above = index - i;
+        var below = index + i;
+
+        if (above > 0) {
+          if (newState.squares[above].mine === 0) {
+            count++;
+          }
+        }
+
+        if (below < squares.length) {
+          if (newState.squares[below].mine === 0) {
+            count++;
+          }
+        }
+      }
+
+      if (index !== 0 && index % 10 !== 0) {
+        if (newState.squares[index - 1].mine === 0) {
+          count++;
+          console.log('counted left');
+        }
+      }
+
+      if (index !== 9 && index % 10 !== 9) {
+        if (newState.squares[index + 1].mine === 0) {
+          count++;
+          console.log('counted right');
+        }
+      }
+
+      console.log(count);
     }
   }, {
     key: "render",
@@ -909,12 +950,23 @@ var SquareContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.but
 }); // FF7D33 : #33CEFF
 
 var Square = function Square(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, {
+  var square = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, {
     onClick: function onClick() {
       return props.uncoverSquare(props.square.index);
     },
     covered: props.square.covered
-  });
+  }, props.square.index);
+
+  if (props.square.mine === 0 && !props.square.covered) {
+    square = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, {
+      onClick: function onClick() {
+        return props.uncoverSquare(props.square.index);
+      },
+      covered: props.square.covered
+    }, "X");
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, square);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Square);
