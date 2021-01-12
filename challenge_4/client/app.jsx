@@ -13,7 +13,8 @@ Challenge 4
   - or render a number, mine, or blank when uncovered
 - Implement uncoverSquare function
   - create helper function to recursively uncover and check surrounding
-    squares for mines and return number of mines surrounding uncovered squares
+    squares based on grid coordinates for mines and return number of mines
+    surrounding uncovered squares
 **/
 
 const MainContainer = styled.div`
@@ -66,8 +67,11 @@ class App extends React.Component {
     this.uncoverSquare = this.uncoverSquare.bind(this);
   }
 
-  uncoverSquare (coordinate) {
-
+  uncoverSquare (index) {
+    let newState = Object.assign({}, this.state);
+    newState.squares[index].covered = false;
+    this.setState(newState);
+    console.log(this.state.squares[index]);
   }
 
   render() {
@@ -75,7 +79,7 @@ class App extends React.Component {
     return (
       <MainContainer>
         {squares.map((square, index) =>
-          <Square key={index} uncoverSquare={this.uncoverSquare}/>
+          <Square key={index} square={square} uncoverSquare={this.uncoverSquare}/>
         )}
       </MainContainer>
     )

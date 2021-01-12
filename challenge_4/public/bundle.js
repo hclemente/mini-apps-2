@@ -792,6 +792,20 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+/*
+Challenge 4
+- Setup Webpack, Babal, Express
+- Setup Jest
+- Setup Redux
+- Build UI
+  - render blank when covered
+  - or render a number, mine, or blank when uncovered
+- Implement uncoverSquare function
+  - create helper function to recursively uncover and check surrounding
+    squares based on grid coordinates for mines and return number of mines
+    surrounding uncovered squares
+**/
+
 var MainContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__.default.div.withConfig({
   displayName: "App__MainContainer",
   componentId: "sc-87f2c4-0"
@@ -840,7 +854,12 @@ var App = /*#__PURE__*/function (_React$Component) {
 
   _createClass(App, [{
     key: "uncoverSquare",
-    value: function uncoverSquare(coordinate) {}
+    value: function uncoverSquare(index) {
+      var newState = Object.assign({}, this.state);
+      newState.squares[index].covered = false;
+      this.setState(newState);
+      console.log(this.state.squares[index]);
+    }
   }, {
     key: "render",
     value: function render() {
@@ -849,6 +868,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MainContainer, null, squares.map(function (square, index) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Square__WEBPACK_IMPORTED_MODULE_2__.default, {
           key: index,
+          square: square,
           uncoverSquare: _this2.uncoverSquare
         });
       }));
@@ -880,13 +900,20 @@ __webpack_require__.r(__webpack_exports__);
 var SquareContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__.default.button.withConfig({
   displayName: "Square__SquareContainer",
   componentId: "e2qb8z-0"
-})(["height:45px;width:45px;background:#FF7D33;justify-content:center;align-self:center;"]);
+})(["height:45px;width:45px;background:", ";justify-content:center;align-self:center;"], function (props) {
+  if (props.covered) {
+    return '#FF7D33';
+  } else {
+    return '#33CEFF';
+  }
+}); // FF7D33 : #33CEFF
 
 var Square = function Square(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, {
     onClick: function onClick() {
-      return props.uncoverSquare([0, 0]);
-    }
+      return props.uncoverSquare(props.square.index);
+    },
+    covered: props.square.covered
   });
 };
 
