@@ -873,14 +873,42 @@ var App = /*#__PURE__*/function (_React$Component) {
         var below = index + i;
 
         if (above > 0) {
-          if (newState.squares[above].mine === 0) {
-            count++;
+          if (index !== 0 && index % 10 !== 0 && index !== 9 && index % 10 !== 9) {
+            if (newState.squares[above].mine === 0) {
+              count++;
+            }
+          } else if (index === 0 || index % 10 === 0) {
+            if (i !== 11) {
+              if (newState.squares[above].mine === 0) {
+                count++;
+              }
+            }
+          } else {
+            if (i !== 9) {
+              if (newState.squares[above].mine === 0) {
+                count++;
+              }
+            }
           }
         }
 
         if (below < squares.length) {
-          if (newState.squares[below].mine === 0) {
-            count++;
+          if (index !== 0 && index % 10 !== 0 && index !== 9 && index % 10 !== 9) {
+            if (newState.squares[below].mine === 0) {
+              count++;
+            }
+          } else if (index === 0 || index % 10 === 0) {
+            if (i !== 9) {
+              if (newState.squares[below].mine === 0) {
+                count++;
+              }
+            }
+          } else {
+            if (i !== 11) {
+              if (newState.squares[below].mine === 0) {
+                count++;
+              }
+            }
           }
         }
       }
@@ -888,14 +916,12 @@ var App = /*#__PURE__*/function (_React$Component) {
       if (index !== 0 && index % 10 !== 0) {
         if (newState.squares[index - 1].mine === 0) {
           count++;
-          console.log('counted left');
         }
       }
 
       if (index !== 9 && index % 10 !== 9) {
         if (newState.squares[index + 1].mine === 0) {
           count++;
-          console.log('counted right');
         }
       }
 

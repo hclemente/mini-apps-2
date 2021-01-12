@@ -85,30 +85,52 @@ class App extends React.Component {
       let above = index - i;
       let below = index + i;
       if (above > 0) {
-
-        if (newState.squares[above].mine === 0) {
-          count++;
-
+        if ((index !== 0 && index % 10 !== 0) && (index !== 9 && index % 10 !== 9)) {
+          if (newState.squares[above].mine === 0) {
+            count++;
+          }
+        } else if(index === 0 || index % 10 === 0) {
+          if (i !== 11) {
+            if (newState.squares[above].mine === 0) {
+              count++;
+            }
+          }
+        } else {
+          if (i !== 9) {
+            if (newState.squares[above].mine === 0) {
+              count++;
+            }
+          }
         }
       }
       if (below < squares.length) {
-
-        if (newState.squares[below].mine === 0) {
-          count++;
-
+        if ((index !== 0 && index % 10 !== 0) && (index !== 9 && index % 10 !== 9)) {
+          if (newState.squares[below].mine === 0) {
+            count++;
+          }
+        } else if(index === 0 || index % 10 === 0) {
+          if (i !== 9) {
+            if (newState.squares[below].mine === 0) {
+              count++;
+            }
+          }
+        } else {
+          if (i !== 11) {
+            if (newState.squares[below].mine === 0) {
+              count++;
+            }
+          }
         }
       }
     }
     if (index !== 0 && index % 10 !== 0) {
       if (newState.squares[index - 1].mine === 0) {
         count++;
-        console.log('counted left')
       }
     }
     if (index !== 9 && index % 10 !== 9) {
       if (newState.squares[index + 1].mine === 0) {
         count++;
-        console.log('counted right')
       }
     }
     console.log(count);
