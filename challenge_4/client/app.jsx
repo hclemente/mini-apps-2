@@ -35,7 +35,7 @@ const MainContainer = styled.div`
 
 let numRows = 10;
 let numColumns = 10;
-let mineRatio = 10;
+let mineRatio = 7;
 
 const createSquares = (numRows, numColumns, mineRatio) => {
   let squares = [];
@@ -47,7 +47,8 @@ const createSquares = (numRows, numColumns, mineRatio) => {
             index: index,
             covered: true,
             mine: Math.floor(Math.random() * Math.floor(mineRatio)),
-            gridCoordinate: [row,column]
+            gridCoordinate: [row,column],
+            minesAround: 0,
           }
         );
         index++;
@@ -72,7 +73,7 @@ class App extends React.Component {
   uncoverSquare (index) {
     let newState = Object.assign({}, this.state);
     newState.squares[index].covered = false;
-    this.countMines(index);
+    newState.squares[index].minesAround = this.countMines(index);
     this.setState(newState);
     // console.log(this.state.squares[index]);
   }
@@ -84,7 +85,7 @@ class App extends React.Component {
     for (let i = 9; i < 12; i++) {
       let above = index - i;
       let below = index + i;
-      if (above > 0) {
+      if (above >= 0) {
         if ((index !== 0 && index % 10 !== 0) && (index !== 9 && index % 10 !== 9)) {
           if (newState.squares[above].mine === 0) {
             count++;
@@ -133,7 +134,7 @@ class App extends React.Component {
         count++;
       }
     }
-    console.log(count);
+    return count;
   }
 
   render() {

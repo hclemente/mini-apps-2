@@ -812,7 +812,7 @@ var MainContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__.default.div.w
 })(["position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:grey;border:2px solid black;height:450px;width:450px;margin:auto;display:flex;flex-direction:row;flex-wrap:wrap;z-index:0;"]);
 var numRows = 10;
 var numColumns = 10;
-var mineRatio = 10;
+var mineRatio = 7;
 
 var createSquares = function createSquares(numRows, numColumns, mineRatio) {
   var squares = [];
@@ -824,7 +824,8 @@ var createSquares = function createSquares(numRows, numColumns, mineRatio) {
         index: index,
         covered: true,
         mine: Math.floor(Math.random() * Math.floor(mineRatio)),
-        gridCoordinate: [row, column]
+        gridCoordinate: [row, column],
+        minesAround: 0
       });
       index++;
     }
@@ -859,7 +860,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function uncoverSquare(index) {
       var newState = Object.assign({}, this.state);
       newState.squares[index].covered = false;
-      this.countMines(index);
+      newState.squares[index].minesAround = this.countMines(index);
       this.setState(newState); // console.log(this.state.squares[index]);
     }
   }, {
@@ -872,7 +873,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         var above = index - i;
         var below = index + i;
 
-        if (above > 0) {
+        if (above >= 0) {
           if (index !== 0 && index % 10 !== 0 && index !== 9 && index % 10 !== 9) {
             if (newState.squares[above].mine === 0) {
               count++;
@@ -925,7 +926,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       }
 
-      console.log(count);
+      return count;
     }
   }, {
     key: "render",
@@ -981,7 +982,7 @@ var Square = function Square(props) {
       return props.uncoverSquare(props.square.index);
     },
     covered: props.square.covered
-  }, props.square.index);
+  });
 
   if (props.square.mine === 0 && !props.square.covered) {
     square = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, {
@@ -990,6 +991,13 @@ var Square = function Square(props) {
       },
       covered: props.square.covered
     }, "X");
+  } else if (!props.square.covered) {
+    square = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SquareContainer, {
+      onClick: function onClick() {
+        return props.uncoverSquare(props.square.index);
+      },
+      covered: props.square.covered
+    }, props.square.minesAround);
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, square);
